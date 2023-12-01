@@ -1,5 +1,6 @@
 import { createInterface } from "readline/promises";
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 import {
   S3Client,
@@ -15,8 +16,8 @@ export async function main() {
   const s3Client = new S3Client({
     region: "ap-south-1",
     credentials: {
-      accessKeyId: "AKIAT4AZLR4FDBN4QM2U",
-      secretAccessKey: "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",
+      accessKeyId: process.env.ACCESS_KEY,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY,
     },
   });
 
