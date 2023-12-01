@@ -10,6 +10,7 @@ import {
   DeleteBucketCommand,
   paginateListObjectsV2,
   GetObjectCommand,
+  ListBucketsCommand,
 } from "@aws-sdk/client-s3";
 
 export async function main() {
@@ -46,6 +47,23 @@ export async function main() {
   );
 
   console.log(await Body.transformToString());
+
+// list buckets in your AWS account 
+async function listBuckets() {
+  try {
+    const data = await s3Client.send(new ListBucketsCommand({}));
+    console.log('List of buckets:');
+    data.Buckets.forEach(bucket => {
+      console.log(bucket.Name);
+    });
+  } catch (error) {
+    console.error('Error listing buckets:', error);
+  }
+}
+
+// Call the function to list buckets
+listBuckets();
+
 
   // Confirm resource deletion.
   const prompt = createInterface({
